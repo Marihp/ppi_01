@@ -3,7 +3,9 @@ import folium
 import geopandas as gpd
 
 # Leer la base de datos
-municipios = gpd.read_file("/Users/marianahernandez/biciMaps/MunicipiosVeredas.json")
+municipios = gpd.read_file(
+    "/Users/marianahernandez/biciMaps/MunicipiosVeredas.json"
+)
 # Realizar una copia para agregar index
 municipios_index = municipios.copy()
 municipios_index = municipios_index.set_index("MPIO_CNMBR")
@@ -39,7 +41,9 @@ for _, r in municipios_valle.iterrows():
     sim_geo = gpd.GeoSeries(r["geometry"]).simplify(tolerance=0.001)
     geo_j = sim_geo.to_json()
     # Dar formato al poligono
-    geo_j = folium.GeoJson(data=geo_j, style_function=lambda x: {"fillColor": "green"})
+    geo_j = folium.GeoJson(
+        data=geo_j, style_function=lambda x: {"fillColor": "green"}
+    )
     # Agregar pop-up con el nombre del municipio
     folium.Popup(r["MPIO_CNMBR"]).add_to(geo_j)
     # Agregar poligono al mapa
